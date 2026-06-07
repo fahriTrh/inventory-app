@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const fs = require('fs');
 
 const productsRouter = require('./routes/products');
@@ -20,10 +21,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session
 app.use(session({
+  store: new pgSession({
+    conString: process.env.SUPABASE_DB_URL,
+    tableName: 'user_sessions',
+    createTableIfMissing: false
+  }),
   secret: process.env.SESSION_SECRET || 'rahasia123',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 hari
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
 
 // Middleware cek login — kecuali route auth & assets
