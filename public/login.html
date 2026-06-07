@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — LampuStock</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      padding-bottom: 24px;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 360px;
+    }
+    .login-logo {
+      text-align: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .login-logo span { color: var(--accent); }
+    .login-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+    .error-msg {
+      color: var(--danger);
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="login-logo">💡 Lampu<span>Stock</span></div>
+    <div class="login-sub">Inventory Manajemen Lampu</div>
+
+    <div class="card">
+      <div class="error-msg" id="error-msg">Username atau password salah</div>
+
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input class="form-input" id="username" type="text" placeholder="admin" autocomplete="username" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="password" type="password" placeholder="••••••" autocomplete="current-password" />
+      </div>
+
+      <button class="btn btn-primary btn-full" id="btn-login" style="margin-top:8px">
+        Masuk
+      </button>
+    </div>
+  </div>
+
+  <script>
+    async function doLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errEl = document.getElementById('error-msg');
+      const btn = document.getElementById('btn-login');
+
+      if (!username || !password) {
+        errEl.textContent = 'Username dan password wajib diisi';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Masuk...';
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          window.location.href = '/';
+        } else {
+          errEl.textContent = json.message;
+          errEl.style.display = 'block';
+        }
+      } catch {
+        errEl.textContent = 'Gagal terhubung ke server';
+        errEl.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Masuk';
+      }
+    }
+
+    document.getElementById('btn-login').addEventListener('click', doLogin);
+    document.getElementById('password').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>LampuStock</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     PAGE: DASHBOARD
+════════════════════════════════════ -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <h1 class="page-title">Lampu<span>Stock</span></h1>
+    <span style="font-size:22px">💡</span>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="stat-grid" id="stat-grid">
+    <div class="stat-card yellow skeleton" style="height:72px"></div>
+    <div class="stat-card orange skeleton" style="height:72px"></div>
+    <div class="stat-card red skeleton" style="height:72px"></div>
+    <div class="stat-card green skeleton" style="height:72px"></div>
+  </div>
+
+  <!-- Low stock alert -->
+  <div class="section-title">⚠️ Stok Menipis</div>
+  <div id="low-stock-list">
+    <div class="skeleton" style="height:60px;border-radius:8px;margin-bottom:8px"></div>
+    <div class="skeleton" style="height:60px;border-radius:8px;margin-bottom:8px"></div>
+  </div>
+
+  <!-- Recent transactions -->
+  <div class="section-title" style="margin-top:20px">🕒 Transaksi Terbaru</div>
+  <div class="card" id="recent-tx-list">
+    <div class="skeleton" style="height:40px;margin-bottom:8px;border-radius:6px"></div>
+    <div class="skeleton" style="height:40px;margin-bottom:8px;border-radius:6px"></div>
+    <div class="skeleton" style="height:40px;border-radius:6px"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE: PRODUK
+════════════════════════════════════ -->
+<div class="page" id="page-products">
+  <div class="page-header">
+    <h1 class="page-title">Produk</h1>
+  </div>
+
+  <div class="search-bar">
+    <input class="search-input" id="search-input" type="text" placeholder="Cari nama produk..." />
+  </div>
+
+  <div class="filter-chips" id="filter-chips">
+    <div class="chip active" data-cat="Semua">Semua</div>
+    <div class="chip" data-cat="LED">LED</div>
+    <div class="chip" data-cat="Neon">Neon</div>
+    <div class="chip" data-cat="Halogen">Halogen</div>
+    <div class="chip" data-cat="Pijar">Pijar</div>
+    <div class="chip" data-cat="Solar">Solar</div>
+    <div class="chip" data-cat="Lainnya">Lainnya</div>
+  </div>
+
+  <div class="product-grid" id="product-grid">
+    <div class="skeleton" style="height:200px;border-radius:12px"></div>
+    <div class="skeleton" style="height:200px;border-radius:12px"></div>
+    <div class="skeleton" style="height:200px;border-radius:12px"></div>
+    <div class="skeleton" style="height:200px;border-radius:12px"></div>
+  </div>
+
+  <button class="btn-fab" id="btn-add-product" title="Tambah Produk">+</button>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE: DETAIL PRODUK
+════════════════════════════════════ -->
+<div class="page" id="page-detail">
+  <button class="back-btn" id="back-from-detail">
+    ← Kembali
+  </button>
+
+  <div id="detail-content">
+    <!-- diisi via JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE: STOK
+════════════════════════════════════ -->
+<div class="page" id="page-stock">
+  <div class="page-header">
+    <h1 class="page-title">Riwayat <span>Stok</span></h1>
+  </div>
+
+  <div class="card" id="stock-tx-list">
+    <div class="skeleton" style="height:44px;margin-bottom:8px;border-radius:6px"></div>
+    <div class="skeleton" style="height:44px;margin-bottom:8px;border-radius:6px"></div>
+    <div class="skeleton" style="height:44px;border-radius:6px"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BOTTOM NAV
+════════════════════════════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-page="dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+    </svg>
+    Dashboard
+  </button>
+  <button class="nav-item" data-page="products">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+    </svg>
+    Produk
+  </button>
+  <button class="nav-item" data-page="stock">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>
+    Riwayat
+  </button>
+  <button class="nav-item" data-page="settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+    Akun
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════
+     MODAL: TAMBAH / EDIT PRODUK
+════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-product">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-product-title">Tambah Produk</div>
+
+    <div id="img-upload-area" class="img-upload">
+      <input type="file" id="img-file-input" accept="image/jpeg,image/png,image/webp" />
+      <div id="img-upload-placeholder">
+        <div class="img-upload-icon">📷</div>
+        <div class="img-upload-text">Ketuk untuk pilih foto produk</div>
+        <div class="img-upload-text" style="font-size:11px;margin-top:4px;color:var(--text-muted)">JPG, PNG, WebP • Max 5MB</div>
+      </div>
+      <img id="img-preview" class="img-preview" alt="preview" />
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="form-group">
+        <label class="form-label">Nama Produk *</label>
+        <input class="form-input" id="f-name" type="text" placeholder="Contoh: Lampu LED Philips 10W" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Merk</label>
+          <input class="form-input" id="f-brand" type="text" placeholder="Philips, Osram..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Kategori</label>
+          <select class="form-select" id="f-category">
+            <option value="">-- Pilih --</option>
+            <option>LED</option>
+            <option>Neon</option>
+            <option>Halogen</option>
+            <option>Pijar</option>
+            <option>Solar</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Watt</label>
+          <input class="form-input" id="f-wattage" type="number" placeholder="10" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Harga (Rp)</label>
+          <input class="form-input" id="f-price" type="number" placeholder="25000" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Stok Awal</label>
+          <input class="form-input" id="f-stock" type="number" placeholder="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Min. Stok Alert</label>
+          <input class="form-input" id="f-min-stock" type="number" placeholder="5" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Deskripsi</label>
+        <textarea class="form-textarea" id="f-description" placeholder="Keterangan tambahan..."></textarea>
+      </div>
+
+      <input type="hidden" id="f-image-url" />
+      <input type="hidden" id="f-edit-id" />
+
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="btn btn-outline btn-full" id="btn-cancel-product">Batal</button>
+        <button class="btn btn-primary btn-full" id="btn-save-product">
+          <span id="btn-save-text">Simpan</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MODAL: TRANSAKSI STOK
+════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-stock">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-stock-title">Update Stok</div>
+
+    <div class="form-group">
+      <label class="form-label">Jenis Transaksi</label>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-success btn-full" id="btn-type-in" onclick="setStockType('in')">
+          ▲ Stok Masuk
+        </button>
+        <button class="btn btn-outline btn-full" id="btn-type-out" onclick="setStockType('out')">
+          ▼ Stok Keluar
+        </button>
+      </div>
+      <input type="hidden" id="s-type" value="in" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Jumlah</label>
+      <input class="form-input" id="s-quantity" type="number" placeholder="0" min="1" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Keterangan</label>
+      <input class="form-input" id="s-note" type="text" placeholder="Contoh: Restock dari supplier" />
+    </div>
+
+    <input type="hidden" id="s-product-id" />
+
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-outline btn-full" id="btn-cancel-stock">Batal</button>
+      <button class="btn btn-primary btn-full" id="btn-save-stock">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notifikasi -->
+<div class="toast" id="toast"></div>
+
+<div class="page" id="page-settings">
+  <div class="page-header">
+    <h1 class="page-title">Peng<span>aturan</span></h1>
+  </div>
+
+  <div class="section-title">Informasi Akun</div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="font-size:13px;color:var(--text-muted)">Login sebagai</div>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-top:4px" id="current-username">-</div>
+  </div>
+
+  <div class="section-title">Ganti Kredensial</div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-group">
+      <label class="form-label">Username Baru</label>
+      <input class="form-input" id="new-username" type="text" placeholder="Kosongkan jika tidak diubah" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password Baru</label>
+      <input class="form-input" id="new-password" type="password" placeholder="Kosongkan jika tidak diubah" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password Saat Ini *</label>
+      <input class="form-input" id="current-password" type="password" placeholder="Wajib diisi untuk konfirmasi" />
+    </div>
+    <button class="btn btn-primary btn-full" id="btn-save-credentials">Simpan Perubahan</button>
+  </div>
+
+  <button class="btn btn-outline btn-full" id="btn-logout" style="color:var(--danger);border-color:var(--danger)">
+    Keluar
+  </button>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
